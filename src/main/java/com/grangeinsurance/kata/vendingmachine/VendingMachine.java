@@ -29,4 +29,8 @@ public class VendingMachine {
 			totalValue += value;	
 		}
 	}
+	
+	public Float[] getCoinReturn() {
+		return new Float[] { 0.01f };
+	}
 }
