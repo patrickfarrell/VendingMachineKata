@@ -7,7 +7,7 @@ public class VendingMachine {
 	private float totalValue = 0;
 	
 	public String getDisplayText() {
-		if (totalValue > 0) {
+		if (totalValue > .01) {
 			return String.format("$%.2f", totalValue);
 		}
 		else {

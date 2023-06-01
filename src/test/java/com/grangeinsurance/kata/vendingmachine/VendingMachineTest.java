@@ -57,6 +57,12 @@ import org.junit.jupiter.api.Test;
 		 assertThat(subject.getDisplayText()).isEqualTo("$0.40");
 	 }
 	 
+	 @Test
+	 void displayReadsInsertCoinWhenOnePennyInserted() {
+		 insertPenny();
+		 assertThat(subject.getDisplayText()).isEqualTo("INSERT COIN");
+	 }
+	 
 	 @BeforeEach
 	 void initialize() {
 		 subject = new VendingMachine();
@@ -72,5 +78,9 @@ import org.junit.jupiter.api.Test;
 	 
 	 private void insertNickel() {
 		 subject.insertCoin(0.05f);
+	 }
+	 
+	 private void insertPenny() {
+		 subject.insertCoin(0.01f);
 	 }
 }
