@@ -19,5 +19,15 @@ import org.junit.jupiter.api.Test;
  * @author Patrick Farrell
  */
  class VendingMachineTest {
-
+	 
+	 @Test
+	 void vendingMachineExists() {
+		 assertThat(new VendingMachine()).isNotNull();
+	 }
+	 
+	 @Test
+	 void displayReadsInsertCoinWhenNoCoinsInserted() {
+		 assertThat(new VendingMachine().getDisplayText()).isEqualTo("INSERT COIN");
+	 }
+	 
 }
