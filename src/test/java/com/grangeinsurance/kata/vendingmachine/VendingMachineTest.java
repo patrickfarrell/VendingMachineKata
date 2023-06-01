@@ -29,18 +29,26 @@ class VendingMachineTest {
 	
 	@Test
 	void displayReadsTwentyFiveCentsWhenOneQuarterInserted() {
-		subject.insertCoin(0.25f);
+		insertQuarter();
 		assertThat(subject.getDisplayText()).isEqualTo("$0.25");
 	}
 	
 	@Test
 	void displayReadsTenCentsWhenOneDimeInserted() {
-		subject.insertCoin(0.10f);
+		insertDime();
 		assertThat(subject.getDisplayText()).isEqualTo("$0.10");
 	}
 	
 	@BeforeEach
 	void initialize() {
 		subject = new VendingMachine();
+	}
+	
+	private void insertQuarter() {
+		subject.insertCoin(0.25f);
+	}
+	
+	private void insertDime() {
+		subject.insertCoin(0.10f);
 	}
 }
