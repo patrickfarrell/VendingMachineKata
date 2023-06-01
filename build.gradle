@@ -1,0 +1,27 @@
+plugins {
+	id 'org.springframework.boot' version '2.7.2'
+	id 'io.spring.dependency-management' version '1.0.12.RELEASE'
+	id 'java'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+	  exclude group: 'com.mockito', module: 'mockito-core' // Need to replace mockito-core with mockito-inline
+	} 
+	testImplementation 'org.assertj:assertj-core:3.23.1'
+	testImplementation 'org.mockito:mockito-junit-jupiter:4.6.1' // Mockito Extention for JUnit5
+	testImplementation 'org.mockito:mockito-inline:3.8.0' // Needed to mock static method calls
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
