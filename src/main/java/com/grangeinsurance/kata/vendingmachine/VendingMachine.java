@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.IntPredicate;
 
 public class VendingMachine {
 
@@ -12,6 +13,7 @@ public class VendingMachine {
 	private float totalValue;
 	private Set<Float> validCoins = new HashSet<Float>();
 	private List<Float> coinReturn = new ArrayList<Float>();
+	private List<Product> pickupBox = new ArrayList<Product>();
 	
 	public VendingMachine() {
 		validCoins.add(0.25f);
@@ -36,5 +38,15 @@ public class VendingMachine {
 	
 	public Float[] getCoinReturn() {
 		return coinReturn.toArray(new Float[0]);
+	}
+
+	public void dispenseCola() {
+		if (totalValue == Product.COLA.getUnitCost()) {
+			pickupBox.add(Product.COLA);
+		}
+	}
+
+	public Product[] getPickupBox() {
+		return pickupBox.toArray(new Product[0]);
 	}
 }
