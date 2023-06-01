@@ -1,15 +1,16 @@
 package com.grangeinsurance.kata.vendingmachine;
 
 public enum Product {
-	COLA(1.0f);
+	COLA(1.0d),
+	CANDY(0.65d);
 
-	private float unitCost;
+	private double unitCost;
 	
-	Product(float unitCost) {
+	Product(double unitCost) {
 		this.unitCost = unitCost;
 	}
 	
-	public float getUnitCost() {
+	public double getUnitCost() {
 		return unitCost;
 	}
 }

@@ -8,6 +8,11 @@ public class ProductTest {
 	
 	@Test
 	void unitCostForColaIsOneDollar() {
-		assertThat(Product.COLA.getUnitCost()).isEqualTo(1.0f);
+		assertThat(Product.COLA.getUnitCost()).isEqualTo(1.0d);
+	}
+	
+	@Test
+	void unitCostForCandyIsSixtyFiveCents() {
+		assertThat(Product.CANDY.getUnitCost()).isEqualTo(0.65d);
 	}
 }

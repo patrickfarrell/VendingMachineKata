@@ -60,21 +60,32 @@ class VendingMachineTest {
 	}
 	
 	@Test
-	void coinReturnContainsOnePennyWhenOnePennyInserted() {
+	void coinReturnContainsOnePennyWhenOneWhenOnePennyInserted() {
 		insertPenny();
 		assertThat(subject.getCoinReturn()).hasSize(1);
-		assertThat(subject.getCoinReturn()[0]).isEqualTo(0.01f);
+		assertThat(subject.getCoinReturn()[0]).isEqualTo(.01d);
 	}
 	
 	@Test
-	void pickupBoxContainsOneColaWhenOneDollarInsertedAndDispenseColaButtonPressed() {
+	void pickupBoxContainsColaWhenOneDollarInsertedAndDispenseColaButtonPressed() {
 		insertQuarter();
 		insertQuarter();
 		insertQuarter();
-		insertQuarter(); 
+		insertQuarter();
 		subject.dispenseCola();
 		assertThat(subject.getPickupBox()).hasSize(1);
 		assertThat(subject.getPickupBox()[0]).isEqualTo(Product.COLA);
+	}
+	
+	@Test
+	void pickupBoxContainsCandyWhenSixtyFiveCentsInsertedAndDispenseCandyButtonPressed() {
+		insertQuarter();
+		insertQuarter();
+		insertDime();
+		insertNickel();
+		subject.dispenseCandy();
+		assertThat(subject.getPickupBox()).hasSize(1);
+		assertThat(subject.getPickupBox()[0]).isEqualTo(Product.CANDY);
 	}
 	
 	@BeforeEach
@@ -83,18 +94,18 @@ class VendingMachineTest {
 	}
 	
 	private void insertQuarter() {
-		subject.insertCoin(0.25f);
+		subject.insertCoin(0.25d);
 	}
 	
 	private void insertDime() {
-		subject.insertCoin(0.10f);
+		subject.insertCoin(0.10d);
 	}
 	
 	private void insertNickel() {
-		subject.insertCoin(0.05f);
+		subject.insertCoin(0.05d);
 	}
 	
 	private void insertPenny() {
-		subject.insertCoin(0.01f);
+		subject.insertCoin(0.01d);
 	}
 }
