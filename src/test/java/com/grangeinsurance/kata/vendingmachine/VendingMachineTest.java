@@ -63,6 +63,12 @@ import org.junit.jupiter.api.Test;
 		 assertThat(subject.getDisplayText()).isEqualTo("INSERT COIN");
 	 }
 	 
+	 @Test
+	 void coinReturnContainsOnePennyWhenOnePennyInserted() {
+		 insertPenny();
+		 assertThat(subject.getCoinReturn()).hasSize(1);
+	 }
+	 
 	 @BeforeEach
 	 void initialize() {
 		 subject = new VendingMachine();
