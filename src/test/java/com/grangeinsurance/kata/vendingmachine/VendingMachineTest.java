@@ -19,24 +19,31 @@ import org.junit.jupiter.api.Test;
  * @author Patrick Farrell
  */
  class VendingMachineTest {
+	 private VendingMachine subject;
 	 
 	 @Test
 	 void vendingMachineExists() {
-		 VendingMachine subject = new VendingMachine();
 		 assertThat(subject).isNotNull();
 	 }
 	 
 	 @Test
 	 void displayReadsInsertCoinWhenNoCoinsInserted() {
-		 VendingMachine subject = new VendingMachine();
 		 assertThat(subject.getDisplayText()).isEqualTo("INSERT COIN");
 	 }
 	 
 	 @Test
 	 void displayReadsTwentyFiveCentsWhenOneQuarterInserted() {
-		 VendingMachine subject = new VendingMachine();
-		 subject.insertCoin(0.25f);
+		 insertQuarter();
 		 assertThat(subject.getDisplayText()).isEqualTo("$0.25");
+	 }
+	 
+	 @BeforeEach
+	 void initialize() {
+		 subject = new VendingMachine();
+	 }
+	 
+	 private void insertQuarter() {
+		 subject.insertCoin(0.25f);
 	 }
 	 
 }
