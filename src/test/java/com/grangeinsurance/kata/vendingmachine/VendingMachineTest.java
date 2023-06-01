@@ -20,15 +20,21 @@ import org.junit.jupiter.api.Test;
  */
 class VendingMachineTest {
 	
+	private VendingMachine subject;
+	
 	@Test
 	void displayReadsInsertCoinWhenNoCoinsInserted() {
-		assertThat(new VendingMachine().getDisplayText()).isEqualTo("INSERT COIN");
+		assertThat(subject.getDisplayText()).isEqualTo("INSERT COIN");
 	}
 	
 	@Test
 	void displayReadsTwentyFiveCentsWhenOneQuarterInserted() {
-		VendingMachine subject = new VendingMachine();
 		subject.insertCoin(0.25f);
 		assertThat(subject.getDisplayText()).isEqualTo("$0.25");
+	}
+	
+	@BeforeEach
+	void initialize() {
+		subject = new VendingMachine();
 	}
 }
