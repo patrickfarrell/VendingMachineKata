@@ -6,8 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * This class ensures that the Vending Machine implementation 
- * is operating according to the given specifications
+ * This class ensures that the Vending Machine is 
+ * operating according to the given specifications
  * 
  * Approach:
  * 1. Write a failing test
