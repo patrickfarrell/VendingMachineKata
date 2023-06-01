@@ -67,6 +67,7 @@ import org.junit.jupiter.api.Test;
 	 void coinReturnContainsOnePennyWhenOnePennyInserted() {
 		 insertPenny();
 		 assertThat(subject.getCoinReturn()).hasSize(1);
+		 assertThat(subject.getCoinReturn()[0]).isEqualTo(0.01f);
 	 }
 	 
 	 @BeforeEach

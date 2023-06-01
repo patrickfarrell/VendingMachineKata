@@ -20,7 +20,6 @@ public class VendingMachine {
 		validCoins.add(0.05f);
 	}
 	
-	
 	public String getDisplayText() {
 		if (totalValue > 0) {
 			return String.format("$%.2f", totalValue);
@@ -43,5 +42,4 @@ public class VendingMachine {
 	public Float[] getCoinReturn() {
 		return coinReturn.toArray(new Float[0]);
 	}
-	
 }
