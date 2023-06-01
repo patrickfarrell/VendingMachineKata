@@ -15,4 +15,9 @@ public class ProductTest {
 	void unitCostForCandyIsSixtyFiveCents() {
 		assertThat(Product.CANDY.getUnitCost()).isEqualTo(0.65d);
 	}
+
+	@Test
+	void unitCostForChipsIsFiftyCents() {
+		assertThat(Product.CHIPS.getUnitCost()).isEqualTo(0.50d);
+	}
 }

@@ -88,6 +88,15 @@ class VendingMachineTest {
 		assertThat(subject.getPickupBox()[0]).isEqualTo(Product.CANDY);
 	}
 	
+	@Test
+	void pickupBoxContainsChipsWhenFiftyCentsInsertedAndDispenseChipsButtonPressed() {
+		insertQuarter();
+		insertQuarter();
+		subject.dispenseChips();
+		assertThat(subject.getPickupBox()).hasSize(1);
+		assertThat(subject.getPickupBox()[0]).isEqualTo(Product.CHIPS);
+	}
+	
 	@BeforeEach
 	void initialize() {
 		subject = new VendingMachine();

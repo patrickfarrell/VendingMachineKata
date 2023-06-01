@@ -51,6 +51,12 @@ public class VendingMachine {
 		}
 	}
 	
+	public void dispenseChips() {
+		if (totalValue == Product.CHIPS.getUnitCost()) {
+			pickupBox.add(Product.CHIPS);
+		}
+	}
+	
 	public Product[] getPickupBox() {
 		return pickupBox.toArray(new Product[0]);
 	}
