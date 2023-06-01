@@ -22,12 +22,14 @@ import org.junit.jupiter.api.Test;
 	 
 	 @Test
 	 void vendingMachineExists() {
-		 assertThat(new VendingMachine()).isNotNull();
+		 VendingMachine subject = new VendingMachine();
+		 assertThat(subject).isNotNull();
 	 }
 	 
 	 @Test
 	 void displayReadsInsertCoinWhenNoCoinsInserted() {
-		 assertThat(new VendingMachine().getDisplayText()).isEqualTo("INSERT COIN");
+		 VendingMachine subject = new VendingMachine();
+		 assertThat(subject.getDisplayText()).isEqualTo("INSERT COIN");
 	 }
 	 
 }
