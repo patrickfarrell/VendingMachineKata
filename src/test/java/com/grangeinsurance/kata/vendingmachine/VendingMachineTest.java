@@ -49,6 +49,14 @@ import org.junit.jupiter.api.Test;
 		 assertThat(subject.getDisplayText()).isEqualTo("$0.05");
 	 }
 	 
+	 @Test
+	 void displayReadsFortyCentsWhenOneQuarterOneDimeAndOneNickelInserted() {
+		 insertQuarter();
+		 insertDime();
+		 insertNickel();
+		 assertThat(subject.getDisplayText()).isEqualTo("$0.40");
+	 }
+	 
 	 @BeforeEach
 	 void initialize() {
 		 subject = new VendingMachine();
