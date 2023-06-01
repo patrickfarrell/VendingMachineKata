@@ -32,4 +32,11 @@ import org.junit.jupiter.api.Test;
 		 assertThat(subject.getDisplayText()).isEqualTo("INSERT COIN");
 	 }
 	 
+	 @Test
+	 void displayReadsTwentyFiveCentsWhenOneQuarterInserted() {
+		 VendingMachine subject = new VendingMachine();
+		 subject.insertCoin(0.25f);
+		 assertThat(subject.getDisplayText()).isEqualTo("$0.25");
+	 }
+	 
 }
