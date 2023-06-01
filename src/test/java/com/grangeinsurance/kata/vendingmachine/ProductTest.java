@@ -10,5 +10,4 @@ public class ProductTest {
 	void unitCostForColaIsOneDollar() {
 		assertThat(Product.COLA.getUnitCost()).isEqualTo(1.0f);
 	}
-
 }
