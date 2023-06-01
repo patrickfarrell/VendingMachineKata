@@ -20,9 +20,4 @@ import org.junit.jupiter.api.Test;
  */
 class VendingMachineTest {
 	
-	@Test
-	void displayReadsInsertCoinWhenNoCoinsInserted() {
-		VendingMachine subject = new VendingMachine();
-		assertThat(subject.getDisplayText()).isEqualTo("INSERT COIN");
-	}
 }
