@@ -23,6 +23,7 @@ class VendingMachineTest {
 	private VendingMachine subject;
 	private static final String DEFAULT_TEXT = "INSERT COIN";
 	private static final String PRODUCT_DISPENSED_TEXT = "THANK YOU";
+	private static final String INSUFFICIENT_FUNDS_TEXT = "PRICE ";
 	
 	@Test
 	void displayReadsInsertCoinWhenNoCoinsInserted() {
@@ -121,15 +122,15 @@ class VendingMachineTest {
 		insertQuarter();
 		insertQuarter();
 		subject.dispenseCola();
-		assertThat(subject.getDisplayText()).isEqualTo("PRICE $1.00");
+		assertThat(subject.getDisplayText()).isEqualTo(INSUFFICIENT_FUNDS_TEXT + "$1.00");
 		assertThat(subject.getDisplayText()).isEqualTo("$0.50");
 	}
 	
 	@Test
 	void displayReadsSixtyFiveCentsWhenNoCoinsInsertedAndDispenseCandyButtonPressed() {
 		subject.dispenseCandy();
-		assertThat(subject.getDisplayText()).isEqualTo("PRICE $0.65");
-		assertThat(subject.getDisplayText()).isEqualTo("INSERT COIN");
+		assertThat(subject.getDisplayText()).isEqualTo(INSUFFICIENT_FUNDS_TEXT + "$0.65");
+		assertThat(subject.getDisplayText()).isEqualTo(DEFAULT_TEXT);
 	}
 	
 	@BeforeEach
