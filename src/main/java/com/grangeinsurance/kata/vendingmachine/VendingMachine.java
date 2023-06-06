@@ -10,6 +10,7 @@ public class VendingMachine {
 
 	private static final String DEFAULT_TEXT = "INSERT COIN";
 	private static final String PRODUCT_DISPENSED_TEXT = "THANK YOU";
+	private static final String INSUFFICIENT_FUNDS_TEXT = "PRICE ";
 	
 	private double totalValue;
 	private Set<Double> validCoins = new HashSet<Double>();
@@ -53,7 +54,7 @@ public class VendingMachine {
 			messages.push(PRODUCT_DISPENSED_TEXT);
 			totalValue = 0;
 		} else {
-			messages.push("PRICE $1.00");
+			messages.push(INSUFFICIENT_FUNDS_TEXT + String.format("$%.2f", Product.COLA.getUnitCost()));
 		}
 	}
 
@@ -62,6 +63,8 @@ public class VendingMachine {
 			pickupBox.add(Product.CANDY);
 			messages.push(PRODUCT_DISPENSED_TEXT);
 			totalValue = 0;
+		} else {
+			messages.push(INSUFFICIENT_FUNDS_TEXT + String.format("$%.2f", Product.CANDY.getUnitCost()));
 		}
 	}
 	
@@ -70,6 +73,8 @@ public class VendingMachine {
 			pickupBox.add(Product.CHIPS);
 			messages.push(PRODUCT_DISPENSED_TEXT);
 			totalValue = 0;
+		} else {
+			messages.push(INSUFFICIENT_FUNDS_TEXT + String.format("$%.2f", Product.CHIPS.getUnitCost()));
 		}
 	}
 	
