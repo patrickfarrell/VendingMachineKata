@@ -125,6 +125,13 @@ class VendingMachineTest {
 		assertThat(subject.getDisplayText()).isEqualTo("$0.50");
 	}
 	
+	@Test
+	void displayReadsSixtyFiveCentsWhenNoCoinsInsertedAndDispenseCandyButtonPressed() {
+		subject.dispenseCandy();
+		assertThat(subject.getDisplayText()).isEqualTo("PRICE $0.65");
+		assertThat(subject.getDisplayText()).isEqualTo("INSERT COIN");
+	}
+	
 	@BeforeEach
 	void initialize() {
 		subject = new VendingMachine();

@@ -29,7 +29,7 @@ public class VendingMachine {
 			if (totalValue > 0) {
 				return String.format("$%.2f", totalValue);
 			} else {
-				return DEFAULT_TEXT;	
+				return DEFAULT_TEXT;
 			}
 		} else {
 			return messages.pop();
