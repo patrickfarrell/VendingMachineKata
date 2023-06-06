@@ -73,7 +73,7 @@ public class VendingMachine {
 		if (totalValue >= Product.CHIPS.getUnitCost()) {
 			pickupBox.add(Product.CHIPS);
 			messages.push(PRODUCT_DISPENSED_TEXT);
-			makeChange(Product.CHIPS);
+			makeChange(BigDecimal.valueOf(totalValue).subtract(BigDecimal.valueOf(Product.CHIPS.getUnitCost())).doubleValue());
 			totalValue = 0;
 		} else {
 			messages.push(INSUFFICIENT_FUNDS_TEXT + String.format("$%.2f", Product.CHIPS.getUnitCost()));
@@ -84,36 +84,33 @@ public class VendingMachine {
 		return pickupBox.toArray(new Product[0]);
 	}
 	
-	private void makeChange(Product product) {
+	private void makeChange(double change) {
 		BigDecimal quarterValue = BigDecimal.valueOf(0.25d);
 		BigDecimal dimeValue = BigDecimal.valueOf(0.10d);
 		BigDecimal nickelValue = BigDecimal.valueOf(0.05d);
-		
-		// Calculate how much change should be returned
-		BigDecimal change = BigDecimal.valueOf(totalValue).subtract(BigDecimal.valueOf(product.getUnitCost()));
-		double totalChange = change.doubleValue();
+		BigDecimal bdChange = BigDecimal.valueOf(change);
 		
 		// Calculate how many quarters should be returned
-		int quarters = ((change.multiply(BigDecimal.valueOf(100))).intValue()) / 25;
-		change = change.subtract(BigDecimal.valueOf(quarters).multiply(quarterValue));
+		int quarters = ((bdChange.multiply(BigDecimal.valueOf(100))).intValue()) / 25;
+		bdChange = bdChange.subtract(BigDecimal.valueOf(quarters).multiply(quarterValue));
 		
 		// Calculate how many dimes should be returned
-		int dimes = ((change.multiply(BigDecimal.valueOf(100))).intValue()) / 10;
-		change = change.subtract(BigDecimal.valueOf(dimes).multiply(dimeValue));
+		int dimes = ((bdChange.multiply(BigDecimal.valueOf(100))).intValue()) / 10;
+		bdChange = bdChange.subtract(BigDecimal.valueOf(dimes).multiply(dimeValue));
 		
 		// Calculate how many nickels should be returned
-		int nickels = ((change.multiply(BigDecimal.valueOf(100))).intValue()) / 5;
-		change = change.subtract(BigDecimal.valueOf(nickels).multiply(nickelValue));
+		int nickels = ((bdChange.multiply(BigDecimal.valueOf(100))).intValue()) / 5;
+		bdChange = bdChange.subtract(BigDecimal.valueOf(nickels).multiply(nickelValue));
 		
-		System.out.println("Change: TotalChange: + " + String.format("$%.2f", totalChange) + " Quarters: " + quarters + " Dimes: " + dimes + " Nickels: " + nickels);
+		System.out.println("Change: TotalChange: + " + String.format("$%.2f", change) + " Quarters: " + quarters + " Dimes: " + dimes + " Nickels: " + nickels);
 		
 		// Return the appropriate number of each coin
-		returnCoins(quarters, 0.25d);
-		returnCoins(dimes, 0.10d);
-		returnCoins(nickels, 0.05d);
+		addCoinsToCoinReturn(quarters, 0.25d);
+		addCoinsToCoinReturn(dimes, 0.10d);
+		addCoinsToCoinReturn(nickels, 0.05d);
 	}
 
-	private void returnCoins(int qty, double value) {
+	private void addCoinsToCoinReturn(int qty, double value) {
 		for (int i = 0; i < qty; i++) {
 			coinReturn.add(value);
 		}
