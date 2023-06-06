@@ -133,6 +133,14 @@ class VendingMachineTest {
 		assertThat(subject.getDisplayText()).isEqualTo(DEFAULT_TEXT);
 	}
 	
+	@Test
+	void displayReadsFiftyCentsWhenTwentyFiveCentsInsertedAndDispenseChipsButtonPressed() {
+		insertQuarter();
+		subject.dispenseChips();
+		assertThat(subject.getDisplayText()).isEqualTo(INSUFFICIENT_FUNDS_TEXT + "$0.50");
+		assertThat(subject.getDisplayText()).isEqualTo("$0.25");
+	}
+	
 	@BeforeEach
 	void initialize() {
 		subject = new VendingMachine();
