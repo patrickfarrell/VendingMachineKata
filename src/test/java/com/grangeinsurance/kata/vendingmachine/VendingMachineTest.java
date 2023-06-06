@@ -151,8 +151,8 @@ class VendingMachineTest {
 		subject.dispenseChips();
 		assertThat(subject.getCoinReturn()).hasSize(3);
 		assertThat(subject.getCoinReturn()[0]).isEqualTo(0.25d);
-		assertThat(subject.getCoinReturn()[0]).isEqualTo(0.10d);
-		assertThat(subject.getCoinReturn()[0]).isEqualTo(0.05d);
+		assertThat(subject.getCoinReturn()[1]).isEqualTo(0.10d);
+		assertThat(subject.getCoinReturn()[2]).isEqualTo(0.05d);
 	}
 	
 	@BeforeEach

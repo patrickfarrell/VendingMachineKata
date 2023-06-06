@@ -1,5 +1,6 @@
 package com.grangeinsurance.kata.vendingmachine;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -69,9 +70,10 @@ public class VendingMachine {
 	}
 	
 	public void dispenseChips() {
-		if (totalValue == Product.CHIPS.getUnitCost()) {
+		if (totalValue >= Product.CHIPS.getUnitCost()) {
 			pickupBox.add(Product.CHIPS);
 			messages.push(PRODUCT_DISPENSED_TEXT);
+			makeChange(Product.CHIPS);
 			totalValue = 0;
 		} else {
 			messages.push(INSUFFICIENT_FUNDS_TEXT + String.format("$%.2f", Product.CHIPS.getUnitCost()));
@@ -80,5 +82,41 @@ public class VendingMachine {
 	
 	public Product[] getPickupBox() {
 		return pickupBox.toArray(new Product[0]);
+	}
+	
+	private void makeChange(Product product) {
+		BigDecimal quarterValue = BigDecimal.valueOf(0.25d);
+		BigDecimal dimeValue = BigDecimal.valueOf(0.10d);
+		BigDecimal nickelValue = BigDecimal.valueOf(0.05d);
+		
+		// Calculate how much change should be returned
+		BigDecimal change = BigDecimal.valueOf(totalValue).subtract(BigDecimal.valueOf(product.getUnitCost()));
+		double totalChange = change.doubleValue();
+		
+		// Calculate how many quarters should be returned
+		int quarters = ((change.multiply(BigDecimal.valueOf(100))).intValue()) / 25;
+		change = change.subtract(BigDecimal.valueOf(quarters).multiply(quarterValue));
+		
+		// Calculate how many dimes should be returned
+		int dimes = ((change.multiply(BigDecimal.valueOf(100))).intValue()) / 10;
+		change = change.subtract(BigDecimal.valueOf(dimes).multiply(dimeValue));
+		
+		// Calculate how many nickels should be returned
+		int nickels = ((change.multiply(BigDecimal.valueOf(100))).intValue()) / 5;
+		change = change.subtract(BigDecimal.valueOf(nickels).multiply(nickelValue));
+		
+		System.out.println("Change: TotalChange: + " + String.format("$%.2f", totalChange) + " Quarters: " + quarters + " Dimes: " + dimes + " Nickels: " + nickels);
+		
+		// Return the appropriate number of each coin
+		returnCoins(quarters, 0.25d);
+		returnCoins(dimes, 0.10d);
+		returnCoins(nickels, 0.05d);
+	}
+
+	private void returnCoins(int qty, double value) {
+		for (int i = 0; i < qty; i++) {
+			coinReturn.add(value);
+		}
+		
 	}
 }
