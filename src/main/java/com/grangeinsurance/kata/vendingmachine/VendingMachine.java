@@ -21,10 +21,12 @@ public class VendingMachine {
 	}
 	
 	public String getDisplayText() {
-		if (totalValue > 0 && pickupBox.isEmpty()) {
-			return String.format("$%.2f", totalValue);
-		} else if (totalValue > 0 && ! pickupBox.isEmpty()) {
-			return "THANK YOU";
+		if (totalValue > 0) {
+			if (pickupBox.isEmpty()) {
+				return String.format("$%.2f", totalValue);
+			} else {
+				return "THANK YOU";
+			}
 		}
 		return DEFAULT_TEXT;
 	}
