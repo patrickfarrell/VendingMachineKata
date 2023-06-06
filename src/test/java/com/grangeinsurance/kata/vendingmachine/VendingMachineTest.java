@@ -155,6 +155,16 @@ class VendingMachineTest {
 		assertThat(subject.getCoinReturn()[2]).isEqualTo(0.05d);
 	}
 	
+	@Test
+	void coinReturnContainsThirtyCentsWhenOneQuarterAndOneNickelInsertedAndReturnCoinsButtonPressed() {
+		insertQuarter();
+		insertNickel();
+		subject.returnCoins();
+		assertThat(subject.getCoinReturn()).hasSize(2);
+		assertThat(subject.getCoinReturn()[0]).isEqualTo(0.25d);
+		assertThat(subject.getCoinReturn()[1]).isEqualTo(0.05d);
+	}
+	
 	@BeforeEach
 	void initialize() {
 		subject = new VendingMachine();

@@ -15,6 +15,7 @@ public class VendingMachine {
 	
 	private double totalValue;
 	private Set<Double> validCoins = new HashSet<Double>();
+	private List<Double> insertedCoins = new ArrayList<Double>();
 	private List<Double> coinReturn = new ArrayList<Double>();
 	private List<Product> pickupBox = new ArrayList<Product>();
 	private Stack<String> messages = new Stack<String>();
@@ -39,6 +40,7 @@ public class VendingMachine {
 	
 	public void insertCoin(double value) {
 		if (validCoins.contains(value)) {
+			insertedCoins.add(value);
 			totalValue += value;
 		} else {
 			coinReturn.add(value);
@@ -53,6 +55,8 @@ public class VendingMachine {
 		if (totalValue == Product.COLA.getUnitCost()) {
 			pickupBox.add(Product.COLA);
 			messages.push(PRODUCT_DISPENSED_TEXT);
+			makeChange(BigDecimal.valueOf(totalValue).subtract(BigDecimal.valueOf(Product.COLA.getUnitCost())).doubleValue());
+			insertedCoins.clear();
 			totalValue = 0;
 		} else {
 			messages.push(INSUFFICIENT_FUNDS_TEXT + String.format("$%.2f", Product.COLA.getUnitCost()));
@@ -63,6 +67,8 @@ public class VendingMachine {
 		if (totalValue == Product.CANDY.getUnitCost()) {
 			pickupBox.add(Product.CANDY);
 			messages.push(PRODUCT_DISPENSED_TEXT);
+			makeChange(BigDecimal.valueOf(totalValue).subtract(BigDecimal.valueOf(Product.CANDY.getUnitCost())).doubleValue());
+			insertedCoins.clear();
 			totalValue = 0;
 		} else {
 			messages.push(INSUFFICIENT_FUNDS_TEXT + String.format("$%.2f", Product.CANDY.getUnitCost()));
@@ -74,6 +80,7 @@ public class VendingMachine {
 			pickupBox.add(Product.CHIPS);
 			messages.push(PRODUCT_DISPENSED_TEXT);
 			makeChange(BigDecimal.valueOf(totalValue).subtract(BigDecimal.valueOf(Product.CHIPS.getUnitCost())).doubleValue());
+			insertedCoins.clear();
 			totalValue = 0;
 		} else {
 			messages.push(INSUFFICIENT_FUNDS_TEXT + String.format("$%.2f", Product.CHIPS.getUnitCost()));
@@ -82,6 +89,11 @@ public class VendingMachine {
 	
 	public Product[] getPickupBox() {
 		return pickupBox.toArray(new Product[0]);
+	}
+	
+	public void returnCoins() {
+		coinReturn.addAll(insertedCoins);
+		insertedCoins.clear();
 	}
 	
 	private void makeChange(double change) {
@@ -115,5 +127,5 @@ public class VendingMachine {
 			coinReturn.add(value);
 		}
 		
-	}
+	}	
 }
