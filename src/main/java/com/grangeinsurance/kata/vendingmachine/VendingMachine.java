@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Stack;
 
 public class VendingMachine {
 
@@ -14,6 +15,7 @@ public class VendingMachine {
 	private Set<Double> validCoins = new HashSet<Double>();
 	private List<Double> coinReturn = new ArrayList<Double>();
 	private List<Product> pickupBox = new ArrayList<Product>();
+	private Stack<String> messages = new Stack<String>();
 	
 	public VendingMachine() {
 		validCoins.add(0.25d);
@@ -22,14 +24,15 @@ public class VendingMachine {
 	}
 	
 	public String getDisplayText() {
-		if (totalValue > 0) {
-			if (pickupBox.isEmpty()) {
+		if (messages.isEmpty()) {
+			if (totalValue > 0) {
 				return String.format("$%.2f", totalValue);
 			} else {
-				return PRODUCT_DISPENSED_TEXT;
+				return DEFAULT_TEXT;	
 			}
+		} else {
+			return messages.pop();
 		}
-		return DEFAULT_TEXT;
 	}
 	
 	public void insertCoin(double value) {
@@ -59,6 +62,8 @@ public class VendingMachine {
 	public void dispenseChips() {
 		if (totalValue == Product.CHIPS.getUnitCost()) {
 			pickupBox.add(Product.CHIPS);
+			messages.push("THANK YOU");
+			totalValue = 0;
 		}
 	}
 	
