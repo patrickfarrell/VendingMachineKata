@@ -21,34 +21,28 @@ import org.junit.jupiter.api.Test;
 class VendingMachineTest {
 	
 	private VendingMachine subject;
-	private static final String DEFAULT_TEXT = "INSERT COIN";
-	private static final String THANK_YOU = "THANK YOU";
-	private static final String TWENTY_FIVE_CENTS = "$0.25";
-	private static final String TEN_CENTS = "$0.10";
-	private static final String FIVE_CENTS = "$0.05";
-	private static final String FORTY_CENTS = "$0.40";
 	
 	@Test
 	void displayReadsInsertCoinWhenNoCoinsInserted() {
-		assertThat(subject.getDisplayText()).isEqualTo(DEFAULT_TEXT);
+		assertThat(subject.getDisplayText()).isEqualTo("INSERT COIN");
 	}
 	
 	@Test
 	void displayReadsTwentyFiveCentsWhenOneQuarterInserted() {
 		insertQuarter();
-		assertThat(subject.getDisplayText()).isEqualTo(TWENTY_FIVE_CENTS);
+		assertThat(subject.getDisplayText()).isEqualTo("$0.25");
 	}
 	
 	@Test
 	void displayReadsTenCentsWhenOneDimeInserted() {
 		insertDime();
-		assertThat(subject.getDisplayText()).isEqualTo(TEN_CENTS);
+		assertThat(subject.getDisplayText()).isEqualTo("$0.10");
 	}
 	
 	@Test
 	void displayReadsFiveCentsWhenOneNickelInserted() {
 		insertNickel();
-		assertThat(subject.getDisplayText()).isEqualTo(FIVE_CENTS);
+		assertThat(subject.getDisplayText()).isEqualTo("$0.05");
 	}
 	
 	@Test
@@ -56,13 +50,13 @@ class VendingMachineTest {
 		insertQuarter();
 		insertDime();
 		insertNickel();
-		assertThat(subject.getDisplayText()).isEqualTo(FORTY_CENTS);
+		assertThat(subject.getDisplayText()).isEqualTo("$0.40");
 	}
 	
 	@Test
 	void displayReadsInsertCoinWhenOnePennyInserted() {
 		insertPenny();
-		assertThat(subject.getDisplayText()).isEqualTo(DEFAULT_TEXT);
+		assertThat(subject.getDisplayText()).isEqualTo("INSERT COIN");
 	}
 	
 	@Test
@@ -108,7 +102,7 @@ class VendingMachineTest {
 		insertQuarter();
 		insertQuarter();
 		subject.dispenseChips();
-		assertThat(subject.getDisplayText()).isEqualTo(THANK_YOU);
+		assertThat(subject.getDisplayText()).isEqualTo("THANK YOU");
 	}
 	
 	@BeforeEach
