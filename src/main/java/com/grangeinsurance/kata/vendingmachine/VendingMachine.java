@@ -8,6 +8,7 @@ import java.util.Set;
 public class VendingMachine {
 
 	private static final String DEFAULT_TEXT = "INSERT COIN";
+	private static final String PRODUCT_DISPENSED_TEXT = "THANK YOU";
 	
 	private double totalValue;
 	private Set<Double> validCoins = new HashSet<Double>();
@@ -25,7 +26,7 @@ public class VendingMachine {
 			if (pickupBox.isEmpty()) {
 				return String.format("$%.2f", totalValue);
 			} else {
-				return "THANK YOU";
+				return PRODUCT_DISPENSED_TEXT;
 			}
 		}
 		return DEFAULT_TEXT;

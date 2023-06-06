@@ -21,10 +21,12 @@ import org.junit.jupiter.api.Test;
 class VendingMachineTest {
 	
 	private VendingMachine subject;
+	private static final String DEFAULT_TEXT = "INSERT COIN";
+	private static final String PRODUCT_DISPENSED_TEXT = "THANK YOU";
 	
 	@Test
 	void displayReadsInsertCoinWhenNoCoinsInserted() {
-		assertThat(subject.getDisplayText()).isEqualTo("INSERT COIN");
+		assertThat(subject.getDisplayText()).isEqualTo(DEFAULT_TEXT);
 	}
 	
 	@Test
@@ -56,7 +58,7 @@ class VendingMachineTest {
 	@Test
 	void displayReadsInsertCoinWhenOnePennyInserted() {
 		insertPenny();
-		assertThat(subject.getDisplayText()).isEqualTo("INSERT COIN");
+		assertThat(subject.getDisplayText()).isEqualTo(DEFAULT_TEXT);
 	}
 	
 	@Test
@@ -102,7 +104,7 @@ class VendingMachineTest {
 		insertQuarter();
 		insertQuarter();
 		subject.dispenseChips();
-		assertThat(subject.getDisplayText()).isEqualTo("THANK YOU");
+		assertThat(subject.getDisplayText()).isEqualTo(PRODUCT_DISPENSED_TEXT);
 	}
 	
 	@BeforeEach
