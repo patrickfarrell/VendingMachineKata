@@ -108,12 +108,21 @@ class VendingMachineTest {
 	}
 	
 	@Test 
-	void displayReadsInsertCoinAfterThankingTheUserForTheirPurchase() {
+	void displayReadsInsertCoinAfterTemporarilyThankingTheUserForTheirPurchase() {
 		insertQuarter();
 		insertQuarter();
 		subject.dispenseChips();
 		subject.getDisplayText(); // THANK YOU
 		assertThat(subject.getDisplayText()).isEqualTo(DEFAULT_TEXT);
+	}
+	
+	@Test
+	void displayReadsOneDollarWhenFiftyCentsInsertedAndDispenseColaButtonPressed() {
+		insertQuarter();
+		insertQuarter();
+		subject.dispenseCola();
+		assertThat(subject.getDisplayText()).isEqualTo("PRICE $1.00");
+		assertThat(subject.getDisplayText()).isEqualTo("$0.50");
 	}
 	
 	@BeforeEach

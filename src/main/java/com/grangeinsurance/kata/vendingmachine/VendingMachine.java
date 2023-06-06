@@ -50,12 +50,18 @@ public class VendingMachine {
 	public void dispenseCola() {
 		if (totalValue == Product.COLA.getUnitCost()) {
 			pickupBox.add(Product.COLA);
+			messages.push(PRODUCT_DISPENSED_TEXT);
+			totalValue = 0;
+		} else {
+			messages.push("PRICE $1.00");
 		}
 	}
 
 	public void dispenseCandy() {
 		if (totalValue == Product.CANDY.getUnitCost()) {
 			pickupBox.add(Product.CANDY);
+			messages.push(PRODUCT_DISPENSED_TEXT);
+			totalValue = 0;
 		}
 	}
 	
