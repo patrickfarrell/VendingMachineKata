@@ -62,7 +62,7 @@ public class VendingMachine {
 	public void dispenseChips() {
 		if (totalValue == Product.CHIPS.getUnitCost()) {
 			pickupBox.add(Product.CHIPS);
-			messages.push("THANK YOU");
+			messages.push(PRODUCT_DISPENSED_TEXT);
 			totalValue = 0;
 		}
 	}
