@@ -64,7 +64,7 @@ public class VendingMachine {
 	}
 
 	public void dispenseCandy() {
-		if (totalValue == Product.CANDY.getUnitCost()) {
+		if (totalValue >= Product.CANDY.getUnitCost()) {
 			pickupBox.add(Product.CANDY);
 			messages.push(PRODUCT_DISPENSED_TEXT);
 			makeChange(BigDecimal.valueOf(totalValue).subtract(BigDecimal.valueOf(Product.CANDY.getUnitCost())).doubleValue());

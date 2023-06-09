@@ -156,6 +156,16 @@ class VendingMachineTest {
 	}
 	
 	@Test
+	void coinReturnContainsTenCentsWhenSeventyFiveCentsInsertedAndDispenseCandyButtonPressed() {
+		insertQuarter();
+		insertQuarter();
+		insertQuarter();
+		subject.dispenseCandy();
+		assertThat(subject.getCoinReturn()).hasSize(1);
+		assertThat(subject.getCoinReturn()[0]).isEqualTo(0.10d);
+	}
+	
+	@Test
 	void coinReturnContainsThirtyCentsWhenOneQuarterAndOneNickelInsertedAndReturnCoinsButtonPressed() {
 		insertQuarter();
 		insertNickel();
