@@ -76,7 +76,9 @@ public class VendingMachine {
 			if (totalValue >= product.getUnitCost()) {
 				pickupBox.add(product);
 				messages.push(PRODUCT_DISPENSED_TEXT);
-				makeChange(BigDecimal.valueOf(totalValue).subtract(BigDecimal.valueOf(product.getUnitCost())).doubleValue());
+				if (! exactChange) {
+					makeChange(BigDecimal.valueOf(totalValue).subtract(BigDecimal.valueOf(product.getUnitCost())).doubleValue());
+				}
 				insertedCoins.clear();
 				totalValue = 0;
 			} else {

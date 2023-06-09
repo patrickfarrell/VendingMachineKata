@@ -223,6 +223,22 @@ class VendingMachineTest {
 		assertThat(subject.getDisplayText()).isEqualTo(EXACT_CHANGE_TEXT);
 	}
 	
+	@Test
+	void coinReturnContainsNoCoinsWhenAdditionalCoinsInsertedAndProductDispensedAndExactChangeIsTrue() {
+		@SuppressWarnings("serial")
+		Map<Product, Integer> productInventory = new HashMap<Product,Integer>() {{
+			put(Product.COLA, 1);
+			put(Product.CANDY, 1);
+			put(Product.CHIPS, 1);
+		}};
+		subject = new VendingMachine(productInventory, true);
+		insertQuarter();
+		insertQuarter();
+		insertNickel();
+		subject.dispense(Product.CHIPS);
+		assertThat(subject.getCoinReturn()).hasSize(0);
+	}
+	
 	@BeforeEach
 	void initialize() {
 		@SuppressWarnings("serial")
