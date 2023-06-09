@@ -195,7 +195,7 @@ class VendingMachineTest {
 	
 	@Test
 	void displayReadsSoldOutFollowedByInsertCoinWhenProductIsSelectedAndNoCoinsInserted() {
-		subject.setProductInventory(new HashMap<Product,Integer>());
+		subject = new VendingMachine(new HashMap<Product,Integer>());
 		subject.dispense(Product.COLA);
 		assertThat(subject.getDisplayText()).isEqualTo(OUT_OF_STOCK_TEXT);
 		assertThat(subject.getDisplayText()).isEqualTo(DEFAULT_TEXT);
@@ -203,7 +203,7 @@ class VendingMachineTest {
 	
 	@Test
 	void displayReadsSoldOutFollowedByValueOfCoinsInsertedWhenProductIsSelected() {
-		subject.setProductInventory(new HashMap<Product,Integer>());
+		subject = new VendingMachine(new HashMap<Product,Integer>());
 		insertQuarter();
 		subject.dispense(Product.COLA);
 		assertThat(subject.getDisplayText()).isEqualTo(OUT_OF_STOCK_TEXT);
@@ -212,12 +212,13 @@ class VendingMachineTest {
 	
 	@BeforeEach
 	void initialize() {
-		subject = new VendingMachine();
-		Map<Product, Integer> productInventory = new HashMap<Product,Integer>();
-		productInventory.put(Product.COLA, 1);
-		productInventory.put(Product.CANDY, 1);
-		productInventory.put(Product.CHIPS, 1);
-		subject.setProductInventory(productInventory);
+		@SuppressWarnings("serial")
+		Map<Product, Integer> productInventory = new HashMap<Product,Integer>() {{
+			put(Product.COLA, 1);
+			put(Product.CANDY, 1);
+			put(Product.CHIPS, 1);
+		}};
+		subject = new VendingMachine(productInventory);
 	}
 	
 	private void insertQuarter() {

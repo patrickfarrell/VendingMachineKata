@@ -23,10 +23,11 @@ public class VendingMachine {
 	private Stack<String> messages = new Stack<String>();
 	private Map<Product, Integer> productInventory;
 	
-	public VendingMachine() {
+	public VendingMachine(Map<Product, Integer> productInventory) {
 		validCoins.add(0.25d);
 		validCoins.add(0.10d);
 		validCoins.add(0.05d);
+		this.productInventory = productInventory;
 	}
 	
 	public String getDisplayText() {
@@ -53,54 +54,6 @@ public class VendingMachine {
 	public Double[] getCoinReturn() {
 		return coinReturn.toArray(new Double[0]);
 	}
-
-//	public void dispenseCola() {
-//		if (productInventory.containsKey(Product.COLA)) {
-//			if (totalValue >= Product.COLA.getUnitCost()) {
-//				pickupBox.add(Product.COLA);
-//				messages.push(PRODUCT_DISPENSED_TEXT);
-//				makeChange(BigDecimal.valueOf(totalValue).subtract(BigDecimal.valueOf(Product.COLA.getUnitCost())).doubleValue());
-//				insertedCoins.clear();
-//				totalValue = 0;
-//			} else {
-//				messages.push(INSUFFICIENT_FUNDS_TEXT + String.format("$%.2f", Product.COLA.getUnitCost()));
-//			}
-//		} else {
-//			messages.push(OUT_OF_STOCK_TEXT);
-//		}
-//	}
-//
-//	public void dispenseCandy() {
-//		if (productInventory.containsKey(Product.CANDY)) {
-//			if (totalValue >= Product.CANDY.getUnitCost()) {
-//				pickupBox.add(Product.CANDY);
-//				messages.push(PRODUCT_DISPENSED_TEXT);
-//				makeChange(BigDecimal.valueOf(totalValue).subtract(BigDecimal.valueOf(Product.CANDY.getUnitCost())).doubleValue());
-//				insertedCoins.clear();
-//				totalValue = 0;
-//			} else {
-//				messages.push(INSUFFICIENT_FUNDS_TEXT + String.format("$%.2f", Product.CANDY.getUnitCost()));
-//			}
-//		} else {
-//			messages.push(OUT_OF_STOCK_TEXT);
-//		}
-//	}
-//	
-//	public void dispenseChips() {
-//		if (productInventory.containsKey(Product.CHIPS)) {
-//			if (totalValue >= Product.CHIPS.getUnitCost()) {
-//				pickupBox.add(Product.CHIPS);
-//				messages.push(PRODUCT_DISPENSED_TEXT);
-//				makeChange(BigDecimal.valueOf(totalValue).subtract(BigDecimal.valueOf(Product.CHIPS.getUnitCost())).doubleValue());
-//				insertedCoins.clear();
-//				totalValue = 0;
-//			} else {
-//				messages.push(INSUFFICIENT_FUNDS_TEXT + String.format("$%.2f", Product.CHIPS.getUnitCost()));
-//			}
-//		} else {
-//			messages.push(OUT_OF_STOCK_TEXT);
-//		}
-//	}
 	
 	public void dispense(Product product) {
 		if (productInventory.containsKey(product)) {
@@ -125,10 +78,6 @@ public class VendingMachine {
 	public void returnCoins() {
 		coinReturn.addAll(insertedCoins);
 		insertedCoins.clear();
-	}
-	
-	public void setProductInventory(Map<Product,Integer> productInventory) {
-		this.productInventory = productInventory;
 	}
 	
 	private void makeChange(double change) {
