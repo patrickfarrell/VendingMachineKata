@@ -2,6 +2,9 @@ package com.grangeinsurance.kata.vendingmachine;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -189,9 +192,23 @@ class VendingMachineTest {
 		assertThat(subject.getCoinReturn()[1]).isEqualTo(0.05d);
 	}
 	
+	@Test
+	void displayReadsSoldOutFollowedByInsertCoinWhenProductIsSelectedAndNoCoinsInserted() {
+		Map<Product, Integer> productInventory = new HashMap<Product,Integer>();
+		subject.setProductInventory(productInventory);
+		subject.dispenseCola();
+		assertThat(subject.getDisplayText()).isEqualTo("SOLD OUT");
+		assertThat(subject.getDisplayText()).isEqualTo("INSERT COIN");
+	}
+	
 	@BeforeEach
 	void initialize() {
 		subject = new VendingMachine();
+		Map<Product, Integer> productInventory = new HashMap<Product,Integer>();
+		productInventory.put(Product.COLA, 1);
+		productInventory.put(Product.CANDY, 1);
+		productInventory.put(Product.CHIPS, 1);
+		subject.setProductInventory(productInventory);
 	}
 	
 	private void insertQuarter() {

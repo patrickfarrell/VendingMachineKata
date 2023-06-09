@@ -2,8 +2,10 @@ package com.grangeinsurance.kata.vendingmachine;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
@@ -19,6 +21,7 @@ public class VendingMachine {
 	private List<Double> coinReturn = new ArrayList<Double>();
 	private List<Product> pickupBox = new ArrayList<Product>();
 	private Stack<String> messages = new Stack<String>();
+	private Map<Product, Integer> productInventory;
 	
 	public VendingMachine() {
 		validCoins.add(0.25d);
@@ -52,14 +55,18 @@ public class VendingMachine {
 	}
 
 	public void dispenseCola() {
-		if (totalValue >= Product.COLA.getUnitCost()) {
-			pickupBox.add(Product.COLA);
-			messages.push(PRODUCT_DISPENSED_TEXT);
-			makeChange(BigDecimal.valueOf(totalValue).subtract(BigDecimal.valueOf(Product.COLA.getUnitCost())).doubleValue());
-			insertedCoins.clear();
-			totalValue = 0;
+		if (productInventory.containsKey(Product.COLA)) {
+			if (totalValue >= Product.COLA.getUnitCost()) {
+				pickupBox.add(Product.COLA);
+				messages.push(PRODUCT_DISPENSED_TEXT);
+				makeChange(BigDecimal.valueOf(totalValue).subtract(BigDecimal.valueOf(Product.COLA.getUnitCost())).doubleValue());
+				insertedCoins.clear();
+				totalValue = 0;
+			} else {
+				messages.push(INSUFFICIENT_FUNDS_TEXT + String.format("$%.2f", Product.COLA.getUnitCost()));
+			}
 		} else {
-			messages.push(INSUFFICIENT_FUNDS_TEXT + String.format("$%.2f", Product.COLA.getUnitCost()));
+			messages.push("SOLD OUT");
 		}
 	}
 
@@ -94,6 +101,10 @@ public class VendingMachine {
 	public void returnCoins() {
 		coinReturn.addAll(insertedCoins);
 		insertedCoins.clear();
+	}
+	
+	public void setProductInventory(Map<Product,Integer> productInventory) {
+		this.productInventory = productInventory;
 	}
 	
 	private void makeChange(double change) {
