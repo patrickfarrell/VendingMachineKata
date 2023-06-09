@@ -27,6 +27,7 @@ class VendingMachineTest {
 	private static final String DEFAULT_TEXT = "INSERT COIN";
 	private static final String PRODUCT_DISPENSED_TEXT = "THANK YOU";
 	private static final String INSUFFICIENT_FUNDS_TEXT = "PRICE ";
+	private static final String OUT_OF_STOCK_TEXT = "SOLD OUT";
 	
 	@Test
 	void displayReadsInsertCoinWhenNoCoinsInserted() {
@@ -194,11 +195,10 @@ class VendingMachineTest {
 	
 	@Test
 	void displayReadsSoldOutFollowedByInsertCoinWhenProductIsSelectedAndNoCoinsInserted() {
-		Map<Product, Integer> productInventory = new HashMap<Product,Integer>();
-		subject.setProductInventory(productInventory);
+		subject.setProductInventory(new HashMap<Product,Integer>());
 		subject.dispenseCola();
-		assertThat(subject.getDisplayText()).isEqualTo("SOLD OUT");
-		assertThat(subject.getDisplayText()).isEqualTo("INSERT COIN");
+		assertThat(subject.getDisplayText()).isEqualTo(OUT_OF_STOCK_TEXT);
+		assertThat(subject.getDisplayText()).isEqualTo(DEFAULT_TEXT);
 	}
 	
 	@BeforeEach

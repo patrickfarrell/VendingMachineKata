@@ -2,7 +2,6 @@ package com.grangeinsurance.kata.vendingmachine;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +13,7 @@ public class VendingMachine {
 	private static final String DEFAULT_TEXT = "INSERT COIN";
 	private static final String PRODUCT_DISPENSED_TEXT = "THANK YOU";
 	private static final String INSUFFICIENT_FUNDS_TEXT = "PRICE ";
+	private static final String OUT_OF_STOCK_TEXT = "SOLD OUT";
 	
 	private double totalValue;
 	private Set<Double> validCoins = new HashSet<Double>();
@@ -66,31 +66,39 @@ public class VendingMachine {
 				messages.push(INSUFFICIENT_FUNDS_TEXT + String.format("$%.2f", Product.COLA.getUnitCost()));
 			}
 		} else {
-			messages.push("SOLD OUT");
+			messages.push(OUT_OF_STOCK_TEXT);
 		}
 	}
 
 	public void dispenseCandy() {
-		if (totalValue >= Product.CANDY.getUnitCost()) {
-			pickupBox.add(Product.CANDY);
-			messages.push(PRODUCT_DISPENSED_TEXT);
-			makeChange(BigDecimal.valueOf(totalValue).subtract(BigDecimal.valueOf(Product.CANDY.getUnitCost())).doubleValue());
-			insertedCoins.clear();
-			totalValue = 0;
+		if (productInventory.containsKey(Product.CANDY)) {
+			if (totalValue >= Product.CANDY.getUnitCost()) {
+				pickupBox.add(Product.CANDY);
+				messages.push(PRODUCT_DISPENSED_TEXT);
+				makeChange(BigDecimal.valueOf(totalValue).subtract(BigDecimal.valueOf(Product.CANDY.getUnitCost())).doubleValue());
+				insertedCoins.clear();
+				totalValue = 0;
+			} else {
+				messages.push(INSUFFICIENT_FUNDS_TEXT + String.format("$%.2f", Product.CANDY.getUnitCost()));
+			}
 		} else {
-			messages.push(INSUFFICIENT_FUNDS_TEXT + String.format("$%.2f", Product.CANDY.getUnitCost()));
+			messages.push(OUT_OF_STOCK_TEXT);
 		}
 	}
 	
 	public void dispenseChips() {
-		if (totalValue >= Product.CHIPS.getUnitCost()) {
-			pickupBox.add(Product.CHIPS);
-			messages.push(PRODUCT_DISPENSED_TEXT);
-			makeChange(BigDecimal.valueOf(totalValue).subtract(BigDecimal.valueOf(Product.CHIPS.getUnitCost())).doubleValue());
-			insertedCoins.clear();
-			totalValue = 0;
+		if (productInventory.containsKey(Product.CHIPS)) {
+			if (totalValue >= Product.CHIPS.getUnitCost()) {
+				pickupBox.add(Product.CHIPS);
+				messages.push(PRODUCT_DISPENSED_TEXT);
+				makeChange(BigDecimal.valueOf(totalValue).subtract(BigDecimal.valueOf(Product.CHIPS.getUnitCost())).doubleValue());
+				insertedCoins.clear();
+				totalValue = 0;
+			} else {
+				messages.push(INSUFFICIENT_FUNDS_TEXT + String.format("$%.2f", Product.CHIPS.getUnitCost()));
+			}
 		} else {
-			messages.push(INSUFFICIENT_FUNDS_TEXT + String.format("$%.2f", Product.CHIPS.getUnitCost()));
+			messages.push(OUT_OF_STOCK_TEXT);
 		}
 	}
 	
