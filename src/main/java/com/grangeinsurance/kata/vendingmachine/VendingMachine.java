@@ -89,7 +89,7 @@ public class VendingMachine {
 	
 	public Product[] getPickupBox() {
 		return pickupBox.toArray(new Product[0]);
-	}
+	}	
 	
 	public void returnCoins() {
 		coinReturn.addAll(insertedCoins);
