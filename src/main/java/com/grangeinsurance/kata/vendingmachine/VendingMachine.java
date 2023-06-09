@@ -52,7 +52,7 @@ public class VendingMachine {
 	}
 
 	public void dispenseCola() {
-		if (totalValue == Product.COLA.getUnitCost()) {
+		if (totalValue >= Product.COLA.getUnitCost()) {
 			pickupBox.add(Product.COLA);
 			messages.push(PRODUCT_DISPENSED_TEXT);
 			makeChange(BigDecimal.valueOf(totalValue).subtract(BigDecimal.valueOf(Product.COLA.getUnitCost())).doubleValue());
