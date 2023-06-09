@@ -224,7 +224,7 @@ class VendingMachineTest {
 	}
 	
 	@Test
-	void coinReturnIsEmptyAfterDispensingProductWhenExactChangeIndicatorIsTrue() {
+	void coinReturnIsEmptyAfterInsertingTooMuchCurrencyAndDispensingProductWhenExactChangeIndicatorIsTrue() {
 		@SuppressWarnings("serial")
 		Map<Product, Integer> productInventory = new HashMap<Product,Integer>() {{
 			put(Product.COLA, 1);
