@@ -79,7 +79,7 @@ class VendingMachineTest {
 		insertQuarter();
 		insertQuarter();
 		insertQuarter();
-		subject.dispenseCola();
+		subject.dispense(Product.COLA);
 		assertThat(subject.getPickupBox()).hasSize(1);
 		assertThat(subject.getPickupBox()[0]).isEqualTo(Product.COLA);
 	}
@@ -90,7 +90,7 @@ class VendingMachineTest {
 		insertQuarter();
 		insertDime();
 		insertNickel();
-		subject.dispenseCandy();
+		subject.dispense(Product.CANDY);
 		assertThat(subject.getPickupBox()).hasSize(1);
 		assertThat(subject.getPickupBox()[0]).isEqualTo(Product.CANDY);
 	}
@@ -99,7 +99,7 @@ class VendingMachineTest {
 	void pickupBoxContainsChipsWhenFiftyCentsInsertedAndDispenseChipsButtonPressed() {
 		insertQuarter();
 		insertQuarter();
-		subject.dispenseChips();
+		subject.dispense(Product.CHIPS);
 		assertThat(subject.getPickupBox()).hasSize(1);
 		assertThat(subject.getPickupBox()[0]).isEqualTo(Product.CHIPS);
 	}
@@ -108,7 +108,7 @@ class VendingMachineTest {
 	void displayReadsThankYouWhenProductIsDispensed() {
 		insertQuarter();
 		insertQuarter();
-		subject.dispenseChips();
+		subject.dispense(Product.CHIPS);
 		assertThat(subject.getDisplayText()).isEqualTo(PRODUCT_DISPENSED_TEXT);
 	}
 	
@@ -116,7 +116,7 @@ class VendingMachineTest {
 	void displayReadsInsertCoinAfterTemporarilyThankingTheUserForTheirPurchase() {
 		insertQuarter();
 		insertQuarter();
-		subject.dispenseChips();
+		subject.dispense(Product.CHIPS);
 		subject.getDisplayText(); // THANK YOU
 		assertThat(subject.getDisplayText()).isEqualTo(DEFAULT_TEXT);
 	}
@@ -125,14 +125,14 @@ class VendingMachineTest {
 	void displayReadsOneDollarWhenFiftyCentsInsertedAndDispenseColaButtonPressed() {
 		insertQuarter();
 		insertQuarter();
-		subject.dispenseCola();
+		subject.dispense(Product.COLA);
 		assertThat(subject.getDisplayText()).isEqualTo(INSUFFICIENT_FUNDS_TEXT + "$1.00");
 		assertThat(subject.getDisplayText()).isEqualTo("$0.50");
 	}
 	
 	@Test
 	void displayReadsSixtyFiveCentsWhenNoCoinsInsertedAndDispenseCandyButtonPressed() {
-		subject.dispenseCandy();
+		subject.dispense(Product.CANDY);
 		assertThat(subject.getDisplayText()).isEqualTo(INSUFFICIENT_FUNDS_TEXT + "$0.65");
 		assertThat(subject.getDisplayText()).isEqualTo(DEFAULT_TEXT);
 	}
@@ -140,7 +140,7 @@ class VendingMachineTest {
 	@Test
 	void displayReadsFiftyCentsWhenTwentyFiveCentsInsertedAndDispenseChipsButtonPressed() {
 		insertQuarter();
-		subject.dispenseChips();
+		subject.dispense(Product.CHIPS);
 		assertThat(subject.getDisplayText()).isEqualTo(INSUFFICIENT_FUNDS_TEXT + "$0.50");
 		assertThat(subject.getDisplayText()).isEqualTo("$0.25");
 	}
@@ -152,7 +152,7 @@ class VendingMachineTest {
 		insertQuarter();
 		insertDime();
 		insertNickel();
-		subject.dispenseChips();
+		subject.dispense(Product.CHIPS);
 		assertThat(subject.getCoinReturn()).hasSize(3);
 		assertThat(subject.getCoinReturn()[0]).isEqualTo(0.25d);
 		assertThat(subject.getCoinReturn()[1]).isEqualTo(0.10d);
@@ -164,7 +164,7 @@ class VendingMachineTest {
 		insertQuarter();
 		insertQuarter();
 		insertQuarter();
-		subject.dispenseCandy();
+		subject.dispense(Product.CANDY);
 		assertThat(subject.getCoinReturn()).hasSize(1);
 		assertThat(subject.getCoinReturn()[0]).isEqualTo(0.10d);
 	}
@@ -178,7 +178,7 @@ class VendingMachineTest {
 		insertDime();
 		insertNickel();
 		insertNickel();
-		subject.dispenseCola();
+		subject.dispense(Product.COLA);
 		assertThat(subject.getCoinReturn()).hasSize(1);
 		assertThat(subject.getCoinReturn()[0]).isEqualTo(0.05d);
 	}
@@ -196,7 +196,7 @@ class VendingMachineTest {
 	@Test
 	void displayReadsSoldOutFollowedByInsertCoinWhenProductIsSelectedAndNoCoinsInserted() {
 		subject.setProductInventory(new HashMap<Product,Integer>());
-		subject.dispenseCola();
+		subject.dispense(Product.COLA);
 		assertThat(subject.getDisplayText()).isEqualTo(OUT_OF_STOCK_TEXT);
 		assertThat(subject.getDisplayText()).isEqualTo(DEFAULT_TEXT);
 	}
@@ -205,7 +205,7 @@ class VendingMachineTest {
 	void displayReadsSoldOutFollowedByValueOfCoinsInsertedWhenProductIsSelected() {
 		subject.setProductInventory(new HashMap<Product,Integer>());
 		insertQuarter();
-		subject.dispenseCola();
+		subject.dispense(Product.COLA);
 		assertThat(subject.getDisplayText()).isEqualTo(OUT_OF_STOCK_TEXT);
 		assertThat(subject.getDisplayText()).isEqualTo("$0.25");
 	}
