@@ -2,6 +2,7 @@ package com.grangeinsurance.kata.vendingmachine;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ public class VendingMachine {
 	private static final String PRODUCT_DISPENSED_TEXT = "THANK YOU";
 	private static final String INSUFFICIENT_FUNDS_TEXT = "PRICE ";
 	private static final String OUT_OF_STOCK_TEXT = "SOLD OUT";
+	private static final String EXACT_CHANGE_TEXT = "EXACT CHANGE ONLY";
 	
 	private double totalValue;
 	private Set<Double> validCoins = new HashSet<Double>();
@@ -21,13 +23,17 @@ public class VendingMachine {
 	private List<Double> coinReturn = new ArrayList<Double>();
 	private List<Product> pickupBox = new ArrayList<Product>();
 	private Stack<String> messages = new Stack<String>();
-	private Map<Product, Integer> productInventory;
+	private Map<Product, Integer> productInventory = new HashMap<Product,Integer>();
 	private boolean exactChange = false;
 	
-	public VendingMachine(Map<Product, Integer> productInventory) {
+	public VendingMachine() {
 		validCoins.add(0.25d);
 		validCoins.add(0.10d);
 		validCoins.add(0.05d);
+	}
+	
+	public VendingMachine(Map<Product, Integer> productInventory) {
+		this();
 		this.productInventory = productInventory;
 	}
 	
@@ -42,7 +48,7 @@ public class VendingMachine {
 				return String.format("$%.2f", totalValue);
 			} else {
 				if (exactChange) {
-					return "EXACT CHANGE ONLY";
+					return EXACT_CHANGE_TEXT;
 				} else {
 					return DEFAULT_TEXT;
 				}

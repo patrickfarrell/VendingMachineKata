@@ -28,6 +28,7 @@ class VendingMachineTest {
 	private static final String PRODUCT_DISPENSED_TEXT = "THANK YOU";
 	private static final String INSUFFICIENT_FUNDS_TEXT = "PRICE ";
 	private static final String OUT_OF_STOCK_TEXT = "SOLD OUT";
+	private static final String EXACT_CHANGE_TEXT = "EXACT CHANGE ONLY";
 	
 	@Test
 	void displayReadsInsertCoinWhenNoCoinsInserted() {
@@ -210,17 +211,6 @@ class VendingMachineTest {
 		assertThat(subject.getDisplayText()).isEqualTo("$0.25");
 	}
 	
-	@BeforeEach
-	void initialize() {
-		@SuppressWarnings("serial")
-		Map<Product, Integer> productInventory = new HashMap<Product,Integer>() {{
-			put(Product.COLA, 1);
-			put(Product.CANDY, 1);
-			put(Product.CHIPS, 1);
-		}};
-		subject = new VendingMachine(productInventory);
-	}
-	
 	@Test
 	void displayReadsExactChangeOnlyInsteadOfInsertCoinWhenExactChangeFlagIsTrue() {
 		@SuppressWarnings("serial")
@@ -230,7 +220,18 @@ class VendingMachineTest {
 			put(Product.CHIPS, 1);
 		}};
 		subject = new VendingMachine(productInventory, true);
-		assertThat(subject.getDisplayText()).isEqualTo("EXACT CHANGE ONLY");
+		assertThat(subject.getDisplayText()).isEqualTo(EXACT_CHANGE_TEXT);
+	}
+	
+	@BeforeEach
+	void initialize() {
+		@SuppressWarnings("serial")
+		Map<Product, Integer> productInventory = new HashMap<Product,Integer>() {{
+			put(Product.COLA, 1);
+			put(Product.CANDY, 1);
+			put(Product.CHIPS, 1);
+		}};
+		subject = new VendingMachine(productInventory);
 	}
 	
 	private void insertQuarter() {
