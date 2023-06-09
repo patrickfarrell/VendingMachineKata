@@ -195,7 +195,7 @@ class VendingMachineTest {
 	}
 	
 	@Test
-	void displayReadsSoldOutFollowedByInsertCoinWhenProductIsSelectedAndNoCoinsInserted() {
+	void displayReadsSoldOutFollowedByInsertCoinWhenNoCoinsInsertedAndOutOfStockProductSelected() {
 		subject = new VendingMachine(new HashMap<Product,Integer>());
 		subject.dispense(Product.COLA);
 		assertThat(subject.getDisplayText()).isEqualTo(OUT_OF_STOCK_TEXT);
@@ -203,7 +203,7 @@ class VendingMachineTest {
 	}
 	
 	@Test
-	void displayReadsSoldOutFollowedByValueOfCoinsInsertedWhenProductIsSelected() {
+	void displayReadsSoldOutFollowedByValueOfCoinsInsertedWhenOutOfStockProductIsSelected() {
 		subject = new VendingMachine(new HashMap<Product,Integer>());
 		insertQuarter();
 		subject.dispense(Product.COLA);
@@ -212,7 +212,7 @@ class VendingMachineTest {
 	}
 	
 	@Test
-	void displayReadsExactChangeOnlyInsteadOfInsertCoinWhenExactChangeFlagIsTrue() {
+	void displayReadsExactChangeOnlyWhenNoCoinsInsertedAndExactChangeIndicatorIsTrue() {
 		@SuppressWarnings("serial")
 		Map<Product, Integer> productInventory = new HashMap<Product,Integer>() {{
 			put(Product.COLA, 1);
@@ -224,7 +224,7 @@ class VendingMachineTest {
 	}
 	
 	@Test
-	void coinReturnContainsNoCoinsWhenAdditionalCoinsInsertedAndProductDispensedAndExactChangeIsTrue() {
+	void coinReturnIsEmptyAfterDispensingProductWhenExactChangeIndicatorIsTrue() {
 		@SuppressWarnings("serial")
 		Map<Product, Integer> productInventory = new HashMap<Product,Integer>() {{
 			put(Product.COLA, 1);
