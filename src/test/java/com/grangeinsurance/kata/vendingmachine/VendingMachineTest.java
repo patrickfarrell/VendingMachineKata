@@ -201,6 +201,15 @@ class VendingMachineTest {
 		assertThat(subject.getDisplayText()).isEqualTo(DEFAULT_TEXT);
 	}
 	
+	@Test
+	void displayReadsSoldOutFollowedByValueOfCoinsInsertedWhenProductIsSelected() {
+		subject.setProductInventory(new HashMap<Product,Integer>());
+		insertQuarter();
+		subject.dispenseCola();
+		assertThat(subject.getDisplayText()).isEqualTo(OUT_OF_STOCK_TEXT);
+		assertThat(subject.getDisplayText()).isEqualTo("$0.25");
+	}
+	
 	@BeforeEach
 	void initialize() {
 		subject = new VendingMachine();
