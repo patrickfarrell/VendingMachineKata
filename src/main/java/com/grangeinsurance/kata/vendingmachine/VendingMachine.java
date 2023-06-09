@@ -22,6 +22,7 @@ public class VendingMachine {
 	private List<Product> pickupBox = new ArrayList<Product>();
 	private Stack<String> messages = new Stack<String>();
 	private Map<Product, Integer> productInventory;
+	private boolean exactChange = false;
 	
 	public VendingMachine(Map<Product, Integer> productInventory) {
 		validCoins.add(0.25d);
@@ -30,12 +31,21 @@ public class VendingMachine {
 		this.productInventory = productInventory;
 	}
 	
+	public VendingMachine(Map<Product, Integer> productInventory, boolean exactChange) {
+		this(productInventory);
+		this.exactChange = exactChange;
+	}
+	
 	public String getDisplayText() {
 		if (messages.isEmpty()) {
 			if (totalValue > 0) {
 				return String.format("$%.2f", totalValue);
 			} else {
-				return DEFAULT_TEXT;
+				if (exactChange) {
+					return "EXACT CHANGE ONLY";
+				} else {
+					return DEFAULT_TEXT;
+				}
 			}
 		} else {
 			return messages.pop();
